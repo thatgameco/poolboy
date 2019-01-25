@@ -1,4 +1,4 @@
-# Poolboy - A hunky Erlang worker pool factory
+# Mongo_Poolboy - A modified poolboy for mongodb-erlang
 
 [![Build Status](https://api.travis-ci.org/comtihon/poolboy.svg?branch=master)](https://travis-ci.org/comtihon/poolboy)
 

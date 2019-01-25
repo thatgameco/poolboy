@@ -1,5 +1,5 @@
-%% Poolboy - A hunky Erlang worker pool factory
--module(poolboy).
+%% Mongo-Poolboy - A modified poolboy for mongodb-erlang
+-module(mongo_poolboy).
 -behaviour(gen_server).
 
 -export([checkout/1, checkout/2, checkout/3, checkin/2, transaction/2,
@@ -73,11 +73,11 @@ transaction(Pool, Fun) ->
 -spec transaction(Pool :: pool(), Fun :: fun((Worker :: pid()) -> any()),
     Timeout :: timeout()) -> any().
 transaction(Pool, Fun, Timeout) ->
-    Worker = poolboy:checkout(Pool, true, Timeout),
+    Worker = mongo_poolboy:checkout(Pool, true, Timeout),
     try
         Fun(Worker)
     after
-        ok = poolboy:checkin(Pool, Worker)
+        ok = mongo_poolboy:checkin(Pool, Worker)
     end.
 
 -spec child_spec(PoolId :: term(), PoolArgs :: proplists:proplist())
@@ -90,8 +90,8 @@ child_spec(PoolId, PoolArgs) ->
                  WorkerArgs :: proplists:proplist())
     -> supervisor:child_spec().
 child_spec(PoolId, PoolArgs, WorkerArgs) ->
-    {PoolId, {poolboy, start_link, [PoolArgs, WorkerArgs]},
-     permanent, 5000, worker, [poolboy]}.
+    {PoolId, {mongo_poolboy, start_link, [PoolArgs, WorkerArgs]},
+     permanent, 5000, worker, [mongo_poolboy]}.
 
 -spec start(PoolArgs :: proplists:proplist())
     -> start_ret().
@@ -131,7 +131,7 @@ init({PoolArgs, WorkerArgs}) ->
     init(PoolArgs, WorkerArgs, #state{waiting = Waiting, monitors = Monitors}).
 
 init([{worker_module, Mod} | Rest], WorkerArgs, State) ->
-    {ok, Sup} = poolboy_sup:start_link(Mod, WorkerArgs),
+    {ok, Sup} = mongo_poolboy_sup:start_link(Mod, WorkerArgs),
     init(Rest, WorkerArgs, State#state{supervisor = Sup});
 init([{size, Size} | Rest], WorkerArgs, State) when is_integer(Size) ->
     init(Rest, WorkerArgs, State#state{size = Size});

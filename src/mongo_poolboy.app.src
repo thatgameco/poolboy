@@ -1,10 +1,10 @@
-{application, poolboy, [
-    {description, "A hunky Erlang worker pool factory"},
+{application, mongo_poolboy, [
+    {description, "A modified poolboy for mongodb-erlang"},
     {vsn, "1.6.0"},
     {applications, [kernel, stdlib]},
     {registered, [poolboy]},
 
     {maintainers, ["Devin Torres", "Andrew Thompson", "Kurt Williams"]},
     {licenses, ["Unlicense", "Apache 2.0"]},
-    {links, [{"GitHub", "https://github.com/devinus/poolboy"}]}
+    {links, [{"GitHub", "https://github.com/thatgameco/poolboy"}]}
 ]}.

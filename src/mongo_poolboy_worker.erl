@@ -1,6 +1,6 @@
 %% Poolboy - A hunky Erlang worker pool factory
 
--module(poolboy_worker).
+-module(mongo_poolboy_worker).
 
 -callback start_link(WorkerArgs) -> {ok, Pid} |
                                     {error, {already_started, Pid}} |
