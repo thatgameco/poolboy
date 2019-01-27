@@ -2,9 +2,9 @@
     {description, "A modified poolboy for mongodb-erlang"},
     {vsn, "1.6.0"},
     {applications, [kernel, stdlib]},
-    {registered, [poolboy]},
+    {registered, [mongo_poolboy]},
 
     {maintainers, ["Devin Torres", "Andrew Thompson", "Kurt Williams"]},
     {licenses, ["Unlicense", "Apache 2.0"]},
-    {links, [{"GitHub", "https://github.com/thatgameco/poolboy"}]}
+    {links, [{"GitHub", "https://github.com/thatgameco/mongo_poolboy"}]}
 ]}.
